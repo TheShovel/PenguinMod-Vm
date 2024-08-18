@@ -2,11 +2,7 @@ const BlockType = require("../../extension-support/block-type");
 const ArgumentType = require("../../extension-support/argument-type");
 const Cast = require("../../util/cast");
 
-Scratch.translate.setup({});
 let messageText = "";
-const formatMessage = Scratch.translate;
-const lang = (id, defaultValue) =>
-  Scratch.translate({ id: id, default: defaultValue });
 
 const SymbolsNerdFont =
   "data:font/ttf;base64," +
@@ -162,10 +158,10 @@ function inputmessage(messageText) {
         addText({
           message:
             "> " +
-            lang(
-              "help",
-              'Help:<br><br>   Breakpoint: Pause the program for debugging, press<br>               "Continue" to resume execution.<br>   Console: A window for input and output.<br>   Output: Print text or variables at key points to debug.<br>   Input: Click the ">" button above to input,<br>          input can be detected as<br>          "when input" or "get last input".',
-            ).replace(/ /g, "&nbsp;") +
+            'Help:<br><br>   Breakpoint: Pause the program for debugging, press<br>               "Continue" to resume execution.<br>   Console: A window for input and output.<br>   Output: Print text or variables at key points to debug.<br>   Input: Click the ">" button above to input,<br>          input can be detected as<br>          "when input" or "get last input".'.replace(
+              / /g,
+              "&nbsp;",
+            ) +
             "<br>&nbsp;",
           innerHTML: true,
         });
@@ -400,56 +396,12 @@ class theshovel_console {
   getInfo() {
     return {
       id: "theshovelconsole",
-      name: lang("wsdebugger.extName", "Debugger Console"),
+      name: "Debugger Console",
       blocks: [
-        "---",
-        {
-          opcode: "showConsole",
-          blockType: BlockType.COMMAND,
-          text: lang("wsdebugger.showConsole", "show console"),
-        },
-        {
-          opcode: "hideConsole",
-          blockType: BlockType.COMMAND,
-          text: lang("wsdebugger.hideConsole", "hide console"),
-        },
-        {
-          opcode: "consoleShown",
-          blockType: BlockType.BOOLEAN,
-          text: lang("wsdebugger.consoleShown", "console shown?"),
-        },
-        {
-          opcode: "breakpoint",
-          blockType: BlockType.COMMAND,
-          text: lang("wsdebugger.breakpoint", "breakpoint"),
-        },
-        {
-          opcode: "clearConsole",
-          blockType: BlockType.COMMAND,
-          text: lang("wsdebugger.clearConsole", "clear console"),
-        },
-        {
-          opcode: "output",
-          blockType: BlockType.COMMAND,
-          text: lang("wsdebugger.output", "console [type] [message]"),
-          arguments: {
-            type: {
-              type: ArgumentType.STRING,
-              menu: "outputType",
-            },
-            message: {
-              type: ArgumentType.STRING,
-              defaultValue: "",
-            },
-          },
-        },
         {
           opcode: "outputWithColor",
           blockType: BlockType.COMMAND,
-          text: lang(
-            "wsdebugger.outputWithColor",
-            "output [message] color [color]",
-          ),
+          text: "output [message] color [color]",
           arguments: {
             message: {
               type: ArgumentType.STRING,
@@ -464,14 +416,14 @@ class theshovel_console {
         {
           opcode: "logStage",
           blockType: BlockType.COMMAND,
-          text: lang("wsdebugger.logStage", "log stage"),
+          text: "log stage",
         },
         "---",
         {
           opcode: "whenInput",
           blockType: BlockType.EVENT,
           isEdgeActivated: false,
-          text: "[ICON]" + lang("wsdebugger.whenInput", "when input"),
+          text: "[ICON]" + "when input",
           arguments: {
             ICON: {
               type: ArgumentType.IMAGE,
@@ -483,7 +435,7 @@ class theshovel_console {
         {
           opcode: "getLastInput",
           blockType: BlockType.REPORTER,
-          text: "[ICON]" + lang("wsdebugger.getLastInput", "get last input"),
+          text: "[ICON]" + "get last input",
           arguments: {
             ICON: {
               type: ArgumentType.IMAGE,
@@ -495,7 +447,7 @@ class theshovel_console {
         {
           opcode: "getLastLog",
           blockType: BlockType.REPORTER,
-          text: "[ICON]" + lang("wsdebugger.getLastLog", "get last log [log]"),
+          text: "[ICON]" + "get last log [log]",
           arguments: {
             ICON: {
               type: ArgumentType.IMAGE,
@@ -511,9 +463,7 @@ class theshovel_console {
         {
           opcode: "sendMessageInput",
           blockType: BlockType.COMMAND,
-          text:
-            "[ICON]" +
-            lang("wsdebugger.sendMessageInput", "send [message] in input"),
+          text: "[ICON]" + "send [message] in input",
           arguments: {
             ICON: {
               type: ArgumentType.IMAGE,
@@ -530,62 +480,11 @@ class theshovel_console {
       menus: {
         outputType: {
           acceptReporters: false,
-          items: [
-            {
-              text: formatMessage({
-                id: "wsdebugger.log",
-                default: "log",
-              }),
-              value: "log",
-            },
-            {
-              text: formatMessage({
-                id: "wsdebugger.warn",
-                default: "warn",
-              }),
-              value: "warn",
-            },
-            {
-              text: formatMessage({
-                id: "wsdebugger.error",
-                default: "error",
-              }),
-              value: "error",
-            },
-          ],
+          items: ["log", "warn", "error"],
         },
         logType: {
           acceptReporters: false,
-          items: [
-            {
-              text: formatMessage({
-                id: "wsdebugger.text",
-                default: "Text (HTML)",
-              }),
-              value: "text",
-            },
-            {
-              text: formatMessage({
-                id: "wsdebugger.textEncoded",
-                default: "Text (HTML with encodes)",
-              }),
-              value: "textEncoded",
-            },
-            {
-              text: formatMessage({
-                id: "wsdebugger.color",
-                default: "color (HEX Code)",
-              }),
-              value: "color",
-            },
-            {
-              text: formatMessage({
-                id: "wsdebugger.timestamp",
-                default: "Timestamp",
-              }),
-              value: "timestamp",
-            },
-          ],
+          items: ["text", "color", "timestamp"],
         },
       },
     };
