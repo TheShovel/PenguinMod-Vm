@@ -158,11 +158,7 @@ function inputmessage(messageText) {
         addText({
           message:
             "> " +
-            'Help:<br><br>   Breakpoint: Pause the program for debugging, press<br>               "Continue" to resume execution.<br>   Console: A window for input and output.<br>   Output: Print text or variables at key points to debug.<br>   Input: Click the ">" button above to input,<br>          input can be detected as<br>          "when input" or "get last input".'.replace(
-              / /g,
-              "&nbsp;",
-            ) +
-            "<br>&nbsp;",
+            'Help:<br><br>   Breakpoint: Pause the program for debugging, press<br>               "Continue" to resume execution.<br>   Console: A window for input and output.<br>   Output: Print text or variables at key points to debug.<br>   Input: Click the ">" button above to input,<br>          input can be detected as<br>          "when input" or "get last input".',
           innerHTML: true,
         });
       } else {
@@ -360,7 +356,7 @@ function addText({ message, color, bullet = "", innerHTML = false }) {
   content.appendChild(logElement);
 
   lastLog = message;
-  lastLogEncoded = lastLog.replace(/ /g, "&nbsp;");
+  lastLogEncoded = lastLog;
   lastLogColor = color ?? "";
   lastLogTimestamp = Date.now();
 
@@ -398,6 +394,16 @@ class theshovel_console {
       id: "theshovelconsole",
       name: "Debugger Console",
       blocks: [
+        {
+          opcode: "showConsole",
+          blockType: BlockType.COMMAND,
+          text: "show console",
+        },
+        {
+          opcode: "hideConsole",
+          blockType: BlockType.COMMAND,
+          text: "hide console",
+        },
         {
           opcode: "outputWithColor",
           blockType: BlockType.COMMAND,
