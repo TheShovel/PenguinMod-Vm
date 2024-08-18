@@ -426,22 +426,9 @@ class theshovel_console {
         },
         "---",
         {
-          opcode: "whenInput",
-          blockType: BlockType.EVENT,
-          isEdgeActivated: false,
-          text: "[ICON]" + "when input",
-          arguments: {
-            ICON: {
-              type: ArgumentType.IMAGE,
-              dataURI: inputIcon,
-              flipRTL: true,
-            },
-          },
-        },
-        {
           opcode: "getLastInput",
           blockType: BlockType.REPORTER,
-          text: "[ICON]" + "get last input",
+          text: "get last input",
           arguments: {
             ICON: {
               type: ArgumentType.IMAGE,
@@ -453,7 +440,7 @@ class theshovel_console {
         {
           opcode: "getLastLog",
           blockType: BlockType.REPORTER,
-          text: "[ICON]" + "get last log [log]",
+          text: "get last log [log]",
           arguments: {
             ICON: {
               type: ArgumentType.IMAGE,
@@ -469,7 +456,7 @@ class theshovel_console {
         {
           opcode: "sendMessageInput",
           blockType: BlockType.COMMAND,
-          text: "[ICON]" + "send [message] in input",
+          text: "send [message] in input",
           arguments: {
             ICON: {
               type: ArgumentType.IMAGE,
