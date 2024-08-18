@@ -2,8 +2,6 @@ const BlockType = require("../../extension-support/block-type");
 const ArgumentType = require("../../extension-support/argument-type");
 const Cast = require("../../util/cast");
 
-const { Cast, ArgumentType, BlockType } = Scratch;
-
 Scratch.translate.setup({});
 let messageText = "";
 const formatMessage = Scratch.translate;
