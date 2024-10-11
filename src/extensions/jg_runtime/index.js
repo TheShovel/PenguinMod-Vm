@@ -674,7 +674,7 @@ class JgRuntimeBlocks {
                         "high quality pen",
                         "offscreen sprites",
                         "remove miscellaneous limits",
-                        "out of bounds rendering",
+                        "disable offscreen rendering",
                         "interpolation",
                         "warp timer"
                     ]
@@ -796,25 +796,25 @@ class JgRuntimeBlocks {
     updateRuntimeConfig(args) {
         const enabled = Cast.toString(args.ENABLED).toLowerCase() === 'on';
         switch (Cast.toString(args.OPTION).toLowerCase()) {
-            case 'turbo mode': return vm.setTurboMode(enabled);
-            case "high quality pen": return this.runtime.renderer.setUseHighQualityRender(enabled);
-            case "offscreen sprites": return this.runtime.setRuntimeOptions({ fencing: !enabled });
-            case "remove miscellaneous limits": return this.runtime.setRuntimeOptions({ miscLimits: !enabled });
-            case "out of bounds rendering": return this.runtime.setRuntimeOptions({ disableOffscreenRendering: enabled });
-            case "interpolation": return vm.setInterpolation(enabled);
-            case "warp timer": return this.runtime.setCompilerOptions({ warpTimer: enabled });
+        case 'turbo mode': return vm.setTurboMode(enabled);
+        case "high quality pen": return this.runtime.renderer.setUseHighQualityRender(enabled);
+        case "offscreen sprites": return this.runtime.setRuntimeOptions({ fencing: !enabled });
+        case "remove miscellaneous limits": return this.runtime.setRuntimeOptions({ miscLimits: !enabled });
+        case "disable offscreen rendering": return this.runtime.setRuntimeOptions({ disableOffscreenRendering: enabled });
+        case "interpolation": return vm.setInterpolation(enabled);
+        case "warp timer": return this.runtime.setCompilerOptions({ warpTimer: enabled });
         }
     }
     runtimeConfigEnabled(args) {
         switch (Cast.toString(args.OPTION).toLowerCase()) {
-            case 'turbo mode': return this.runtime.turboMode;
-            case "high quality pen": return this.runtime.renderer.useHighQualityRender;
-            case "offscreen sprites": return !this.runtime.runtimeOptions.fencing;
-            case "remove miscellaneous limits": return !this.runtime.runtimeOptions.miscLimits;
-            case "out of bounds rendering": return this.runtime.runtimeOptions.disableOffscreenRendering;
-            case "interpolation": return this.runtime.interpolationEnabled;
-            case "warp timer": return this.runtime.compilerOptions.warpTimer;
-            default: return false;
+        case 'turbo mode': return this.runtime.turboMode;
+        case "high quality pen": return this.runtime.renderer.useHighQualityRender;
+        case "offscreen sprites": return !this.runtime.runtimeOptions.fencing;
+        case "remove miscellaneous limits": return !this.runtime.runtimeOptions.miscLimits;
+        case "disable offscreen rendering": return this.runtime.runtimeOptions.disableOffscreenRendering;
+        case "interpolation": return this.runtime.interpolationEnabled;
+        case "warp timer": return this.runtime.compilerOptions.warpTimer;
+        default: return false;
         }
     }
     setMaxClones(args) {

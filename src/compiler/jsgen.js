@@ -1073,7 +1073,6 @@ class JSGenerator {
             this.source += `yield* executeInCompatibilityLayer(${inputs}, ${blockFunction}, ${this.isWarp}, false, ${blockId});\n`;
             break;
         }
-
         case 'compat': {
             // If the last command in a loop returns a promise, immediately continue to the next iteration.
             // If you don't do this, the loop effectively yields twice per iteration and will run at half-speed.
@@ -1094,6 +1093,7 @@ class JSGenerator {
                     this.source += `}\n`; // close case
                 }
                 this.source += '}\n'; // close switch
+                this.source += `if (${branchVariable}.onEnd[0]) yield ${branchVariable}.onEnd.shift()(${branchVariable});\n`;
                 this.source += `if (!${branchVariable}.isLoop) break;\n`;
                 this.yieldLoop();
                 this.source += '}\n'; // close while
@@ -1784,7 +1784,7 @@ class JSGenerator {
                     : 'tempVars';
             this.source += this.isOptimized  
                 ? `delete ${hostObj}[${name.asString()}];` 
-                : `remove(${hostObj}, ${name.asString()})`;  
+                : `remove(${hostObj}, ${name.asString()});`;  
             break;
         }
         case 'tempVars.deleteAll': {

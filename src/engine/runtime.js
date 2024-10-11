@@ -3650,6 +3650,22 @@ class Runtime extends EventEmitter {
     }
 
     /**
+     * Get the branch for a particular C-shaped block, and it's target.
+     * @param {?string} id ID for block to get the branch for.
+     * @param {?string} branchId Which branch to select (e.g. for if-else).
+     * @return {?string} ID of block in the branch.
+     */
+    getBranchAndTarget (id, branchId) {
+        for (const target of this.targets) {
+            const result = target.blocks.getBranch(id, branchId);
+            if (result) {
+                return [result, target];
+            }
+        }
+        return null;
+    }
+
+    /**
      * gets a screen, if no screen can be found it will create one
      * @param {string} screen the screen to get
      * @returns {Object} the screen state object
@@ -3676,7 +3692,12 @@ class Runtime extends EventEmitter {
             this.cameraStates[screen] = screen;
         }
         Object.assign(this.cameraStates[screen], state);
-        if (!silent) this.emit(Runtime.CAMERA_CHANGED, screen);
+        if (!silent) {
+            for (let i = 0; i < this.targets.length; i++) 
+                if (this.targets[i].cameraBound === screen)
+                    this.targets[i].cameraUpdateEvent();
+            this.emit(Runtime.CAMERA_CHANGED, screen);
+        }
     }
 
     /**

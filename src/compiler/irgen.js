@@ -1,6 +1,8 @@
 const Cast = require('../util/cast');
 const StringUtil = require('../util/string-util');
 const BlockType = require('../extension-support/block-type');
+const Sequencer = require('../engine/sequencer');
+const BlockUtility = require('../engine/block-utility');
 const Variable = require('../engine/variable');
 const Color = require('../util/color');
 const log = require('../util/log');
@@ -69,6 +71,8 @@ class ScriptTreeGenerator {
         this.runtime = this.target.runtime;
         /** @private */
         this.stage = this.runtime.getTargetForStage();
+        /** @private */
+        this.util = new BlockUtility(this.runtime.sequencer, this.thread);
 
         /**
          * This script's intermediate representation.
