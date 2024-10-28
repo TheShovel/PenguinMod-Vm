@@ -541,6 +541,8 @@ class JSGenerator {
             return new TypedInput('runtime.ext_scratch3_control._counter', TYPE_NUMBER);
         case 'control.error':
             return new TypedInput('runtime.ext_scratch3_control._error', TYPE_STRING);
+        case 'control.isclone':
+            return new TypedInput('(!target.isOriginal)', TYPE_BOOLEAN);
         case 'math.polygon':
             let points = JSON.stringify(node.points.map((point, num) => ({x: `x${num}`, y: `y${num}`})));
             for (let num = 0; num < node.points.length; num++) {
@@ -1025,6 +1027,8 @@ class JSGenerator {
                 return new TypedInput(`Object.keys(${hostObj}).join(',')`, TYPE_STRING);
             }
             return new TypedInput(`JSON.stringify(Object.keys(tempVars))`, TYPE_STRING);
+        case 'control.dualBlock':
+            return new TypedInput('"dual block works!"', TYPE_STRING);
 
         default:
             log.warn(`JS: Unknown input: ${node.kind}`, node);
@@ -1819,6 +1823,9 @@ class JSGenerator {
             this.source += '}\n';
             break;
         }
+        case 'control.dualBlock':
+            this.source += `console.log("dual block works");`
+            break
 
         default:
             log.warn(`JS: Unknown stacked block: ${node.kind}`, node);

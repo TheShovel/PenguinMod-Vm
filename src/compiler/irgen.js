@@ -282,6 +282,10 @@ class ScriptTreeGenerator {
             return {
                 kind: 'control.error'
             };
+        case 'control_is_clone':
+            return {
+                kind: 'control.isclone'
+            };
 
         case 'data_variable':
             return {
@@ -914,6 +918,11 @@ class ScriptTreeGenerator {
         case 'tw_getLastKeyPressed':
             return {
                 kind: 'tw.lastKeyPressed'
+            };
+
+        case 'control_dualblock':
+            return {
+                kind: 'control.dualBlock'
             };
 
         default: {
@@ -1932,7 +1941,7 @@ class ScriptTreeGenerator {
                 var: this.descendInputOfBlock(block, 'name')
             };
 
-        case 'lmsTempVars2_deleteAllRuntimeVariable':
+        case 'lmsTempVars2_deleteAllRuntimeVariables':
             return {
                 kind: 'tempVars.deleteAll',
                 runtime: true
@@ -1957,6 +1966,10 @@ class ScriptTreeGenerator {
                 var: this.descendInputOfBlock(block, 'NAME'),
                 loops: this.descendInputOfBlock(block, 'REPEAT'),
                 do: this.descendSubstack(block, 'SUBSTACK')
+            };
+        case 'control_dualblock':
+            return {
+                kind: 'control.dualBlock'
             };
 
         default: {
